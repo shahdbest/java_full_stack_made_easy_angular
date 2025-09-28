@@ -1,1 +1,47 @@
-aa
+
+-------------------app.html
+hello welcome to angular
+
+
+
+-------app.ts 
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+}
+
+
+
+----------------index.html 
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My fst SPA</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<h1>
+  lets just add something
+</h1>
+
+<!-- this is new line added -->
+<test> </test>
+<!-- this is new line added -->
+</body>
+</html>
+
+
+
+
+
