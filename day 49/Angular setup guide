@@ -1,0 +1,70 @@
+👍 Setting up an **Angular development environment** is pretty straightforward. Here’s what you need:
+
+---
+
+## 🔧 Essentials to Install for Angular Development
+
+### 1. **Node.js (with npm)**
+
+* Angular needs Node.js to run.
+* Download from: [https://nodejs.org](https://nodejs.org)
+* Install the **LTS version** (stable).
+* Installing Node also installs **npm (Node Package Manager)**.
+
+👉 Check after install:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+### 2. **Angular CLI**
+
+* Command-line tool to create and manage Angular apps.
+* Install globally using npm:
+
+```bash
+npm install -g @angular/cli
+```
+
+👉 Check after install:
+
+```bash
+ng version
+```
+
+---
+
+### 3. **Code Editor**
+
+* Recommended: **Visual Studio Code (VS Code)**
+* Install extensions for Angular:
+
+  * Angular Language Service
+
+  
+## 🚀 Workflow After Setup
+
+1. Create a new project:
+
+Create a directory called Angular demos , nevigate to the directory angluar demos in cmd  and create new angular project 
+
+   ng new demo1 --no-standalone 
+   ```
+2. open vs code
+  open folder -> demo1  ......... from anglar demos directory 
+
+3. open new terminal  change the terminal to cmd 
+
+4. Run the app:
+
+   ng serve -o
+   ```
+
+   (opens app in browser at `http://localhost:4200`)
+
+---
+
+✅ That’s it — with Node.js + Angular CLI + VS Code, you’re ready to build Angular apps.
