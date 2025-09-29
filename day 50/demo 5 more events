@@ -1,0 +1,56 @@
+---app.ts
+
+
+  import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  name:string='john';
+
+  num1:number=12;
+  num2:number=18;
+  sumVar:number=0;
+
+  sum(){
+
+
+    this.sumVar=this.num1+this.num2;
+  }
+
+}
+
+--------------------app.html
+
+hello welcome to angular
+
+<h1>
+{{name}}
+</h1>
+
+<br>
+{{5+5}}
+<br>
+the sum of {{num1}} and {{num2}} is = {{num1+num2}}
+
+
+<button (click)="sum()"> calculate </button>
+
+<P> 
+    this sum of 2 numbers is {{sumVar}}
+ </P>
+
+
+ <button (dblclick)="sum()"> double click to calculate </button>
+
+ <button (mouseenter)="sum()"> mouse enter to calculate </button>
+
+
+  
+
