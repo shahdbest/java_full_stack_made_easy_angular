@@ -1,0 +1,30 @@
+------app.ts
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+name="virat kohli"
+
+changeVal()
+{
+ // this.name="rohit";
+  alert(this.name);
+}
+}
+
+---------------app.html 
+
+
+
+  
+<input type="text" [value]="name">
+
+<button (click)="changeVal()"> change </button>
