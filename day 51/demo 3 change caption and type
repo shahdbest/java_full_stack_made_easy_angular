@@ -1,0 +1,47 @@
+-------------app.html
+<input type="text" value="hello">
+
+
+<input type="text" [value]="name">
+<br>
+
+<br>
+
+<input [type]="myType" [value]="name">
+
+<button (click)="changeVal()"> {{btnText}}</button>
+
+------------app.ts
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+name="virat kohli"
+
+myType="text"
+btnText="hide"
+changeVal(){
+  if(this.myType=="text")
+  {
+    this.myType="password"
+    this.btnText="show"
+  }
+    else{
+  this.myType="text"
+  this.btnText="hide"  
+  }
+}
+
+}
+
+  
+
+  
