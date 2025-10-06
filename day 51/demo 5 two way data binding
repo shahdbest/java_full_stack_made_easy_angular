@@ -1,0 +1,64 @@
+---------app.ts
+
+  import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+name="virat kohli"
+
+changeVal()
+{
+ // this.name="rohit";
+  alert(this.name);
+}
+}
+
+---------------------app.html 
+
+
+<input type="text" [(ngModel)]="name">
+
+{{name}}
+
+<button (click)="changeVal()"> change </button>
+
+------------app-module.ts
+
+import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing-module';
+import { App } from './app';
+import { Menu } from './menu/menu';
+import { FormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    App,
+    Menu
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners()
+  ],
+  bootstrap: [App,Menu]
+})
+export class AppModule { }
+
+
+
+  
+  
+  
+
