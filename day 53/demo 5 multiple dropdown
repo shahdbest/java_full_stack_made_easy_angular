@@ -1,0 +1,53 @@
+----------app.html
+<select (change)="changeVal()" [(ngModel)]="selectedState"> 
+    <option *ngFor="let state of states">
+        {{state}}    
+    </option> 
+</select>
+
+
+<select> 
+    <option *ngFor="let city of selectedCities">
+        {{city}}    
+    </option> 
+</select>
+
+
+----------app.ts
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  states=['karnataka','maharastra','andra']
+
+  cities=[['bangalore','bijapur','hubli'],['pune','mumbai'],['vijayawada','kadpa']]
+  
+
+  selectedState="";
+  selectedCities:string[]=[];
+
+
+changeVal()
+{
+  if(this.selectedState=="karnataka")
+    this.selectedCities=this.cities[0];
+  if(this.selectedState=="maharastra")
+    this.selectedCities=this.cities[1];
+  
+  if(this.selectedState=="andra")
+    this.selectedCities=this.cities[2];
+  
+
+}
+
+}
+
+      
