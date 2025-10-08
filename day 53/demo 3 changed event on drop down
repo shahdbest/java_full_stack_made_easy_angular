@@ -1,0 +1,44 @@
+-------app.ts
+
+  import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  cities=['bangalore','bijapur','pune','mumbai'] 
+
+  selectedCity="";
+
+  cityCode=0;
+
+changeVal()
+{
+  alert('value changed to '+this.selectedCity)
+
+  if(this.selectedCity=='bangalore')
+    this.cityCode=556600;
+  
+
+}
+
+}
+
+
+-------------app.html 
+
+
+<select (change)="changeVal()" [(ngModel)]="selectedCity"> 
+    <option *ngFor="let city of cities">
+        {{city}}    
+    </option> 
+</select>
+
+the city code for selected city is {{cityCode}} 
+
+  
