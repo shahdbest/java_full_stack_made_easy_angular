@@ -1,0 +1,47 @@
+-----------app.ts
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  age=0;
+  status="";
+  pClr=""
+testClr="red";
+
+  chkStatus(){
+
+    if(this.age>=18 && this.age<=50)
+    {
+      this.status="eligible";
+    this.pClr="green"      
+    }
+    else
+    {
+      this.status="not eligible";
+    this.pClr="red"      
+    }
+    
+
+  }
+
+}
+
+
+-----------------app.html
+
+
+  
+<input type="number" [(ngModel)]="age">
+<button (click)="chkStatus()"> check status</button>
+
+{{pClr}}
+<p *ngIf="status" [style.background-color]="pClr"> you are {{status}} </p>
+
+
