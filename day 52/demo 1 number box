@@ -1,0 +1,44 @@
+-------app.ts
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+//num1:string='0';
+//num2:string='0';
+
+
+num1:number=0;
+num2:number=0;
+
+sumVar:number=0;
+sum()
+{
+ 
+  // this.sumVar=parseInt(this.num1)+parseInt(this.num2);
+  this.sumVar=this.num1+this.num2;
+}
+}
+
+----------app.html
+
+
+
+<!-- <input type="text" [(ngModel)]="num1">
+<input type="text" [(ngModel)]="num2"> -->
+
+
+<input type="number" [(ngModel)]="num1">
+<input type="number" [(ngModel)]="num2">
+
+<br>
+{{sumVar}}
+<button (click)="sum()"> sum </button>
+
+  
