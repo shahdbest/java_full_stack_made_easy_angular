@@ -1,0 +1,55 @@
+---------app.ts
+
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  states=['karnataka','maharastra','andra']
+
+  cities=[['bangalore','bijapur','hubli'],['pune','mumbai'],['vijayawada','kadpa']]
+  
+
+  selectedState="";
+  selectedCities:string[]=[];
+
+
+changeVal()
+{
+ 
+  //alert(this.states.indexOf(this.selectedState));
+
+  this.selectedCities=this.cities[this.states.indexOf(this.selectedState)];
+  
+
+}
+
+}
+
+
+-------------app.html
+
+
+<select (change)="changeVal()" [(ngModel)]="selectedState"> 
+    <option *ngFor="let state of states">
+        {{state}}    
+    </option> 
+</select>
+
+
+<select> 
+    <option *ngFor="let city of selectedCities">
+        {{city}}    
+    </option> 
+</select>
+
+
+
+  
+
