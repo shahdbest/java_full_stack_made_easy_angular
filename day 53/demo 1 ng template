@@ -1,0 +1,35 @@
+----------------app.ts
+
+  import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  age:any='';
+
+}
+--------------app.html
+
+
+  <input type="text" [(ngModel)]="age">
+
+<div *ngIf="age"> 
+
+<p *ngIf="age > 18 && age < 30; else myElsBlock"> you are eligible for the job </p>
+
+<ng-template #myElsBlock>
+<p *ngIf="age > 30 ; else myElsBlock2"> you are  eligible  for the senior job </p>
+</ng-template>
+
+<ng-template #myElsBlock2>
+<p> you are not eligible for the job </p>
+</ng-template>
+
+
+</div>
