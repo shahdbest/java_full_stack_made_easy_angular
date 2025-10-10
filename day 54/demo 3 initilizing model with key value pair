@@ -1,0 +1,32 @@
+-----------app.ts
+
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  student=new Student();
+  student1=new Student();
+  
+  constructor(){
+    this.student.rollNo=18;
+    this.student.name="virat";
+    this.student.gender="male";
+    this.student.marks=100;
+    this.student.sem=5;
+
+this.student1={'rollNo':2,'name':'test','gender':'female','marks':90,'sem':5};
+
+  }
+
+}
+
+-----------app.html 
+  
