@@ -1,0 +1,49 @@
+---------------app.ts
+
+  import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  student=new Student();
+  
+  constructor(){
+    this.student.rollNo=18;
+    this.student.name="virat";
+    this.student.gender="male";
+    this.student.marks=100;
+    this.student.sem=5;
+
+
+  }
+
+}
+
+---------------app.html 
+
+
+<input type="number" [(ngModel)]="student.rollNo">
+
+<input type="radio" value="Male" [(ngModel)]="student.gender"> male
+<input type="radio" value="Female" [(ngModel)]="student.gender"> female
+<input type="radio" value="Other" [(ngModel)]="student.gender"> other
+
+
+<pre>
+<h1>
+roll No : {{student.rollNo}}
+Name : {{student.name}}
+Sem : {{student.sem}}
+Marks : {{student.marks}}
+Gender : {{student.gender}}
+</h1>
+</pre>
+
+  
