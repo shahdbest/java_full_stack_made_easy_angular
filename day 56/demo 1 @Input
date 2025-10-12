@@ -1,0 +1,99 @@
+ng g c address 
+
+  --------------app.html 
+
+
+  <div *ngFor="let skill of skills"> 
+
+<input type="checkbox" [value]="skill"
+(change)="changeVal(skill,$event)"
+> {{skill}}
+
+</div>
+
+
+<div *ngFor="let skill of slectedSkills"> 
+
+ {{skill}}
+
+</div>
+
+
+<app-address city="Bijapur" state="Karnataka"> </app-address>
+
+<app-address city="Mumbai" state="Maharastra"> </app-address>
+
+
+below one is default
+
+<app-address> </app-address>
+
+
+--------------app.ts
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+  skills:string[]=['html','css','java','angular'];
+
+  slectedSkills:string[]=[];
+
+changeVal(skill:string,event:any)
+{
+    if(event.target.checked){
+      this.slectedSkills.push(skill);
+    }
+    else{
+
+     let idx= this.slectedSkills.indexOf(skill);
+      if(idx>-1)
+      {
+        this.slectedSkills.splice(idx,1);
+      }
+    }
+
+
+}
+
+}
+
+---------------------address.html 
+
+  <p>address works!</p>
+
+
+City: {{city}}
+State: {{state}}
+
+--------------address.ts
+
+  import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-address',
+  standalone: false,
+  templateUrl: './address.html',
+  styleUrl: './address.css'
+})
+export class Address {
+
+  @Input('city')
+  city="pune";
+    @Input('state')
+  state="maharastra"
+
+
+}
+
+
+  
+
+  
