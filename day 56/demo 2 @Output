@@ -1,0 +1,141 @@
+ng g c addStudent
+
+-----student.model.ts
+
+  export class Student{
+
+    rollNo:number=0;
+    name:string="";
+    marks:number=0;
+    gender:string="";
+    sem:number=0;
+
+}
+
+-----------------add-student.ts
+
+  import { Component, EventEmitter, Output } from '@angular/core';
+import { Student } from '../../student.model';
+
+@Component({
+  selector: 'app-add-student',
+  standalone: false,
+  templateUrl: './add-student.html',
+  styleUrl: './add-student.css'
+})
+export class AddStudent {
+
+  student=new Student();
+
+@Output()
+studentAdded=new EventEmitter();
+
+
+  addStudent(){
+  //this.students.push(this.student);
+    this.studentAdded.emit(this.student);
+}
+
+
+}
+
+---------------------add-student.html 
+
+
+<p>add-student works!</p>
+
+
+<!-- add student -->
+
+<pre> 
+
+   Roll no <input type="number" [(ngModel)]="student.rollNo">
+   Name <input type="text" [(ngModel)]="student.name">
+   
+   
+Gender <input type="radio" value="Male" [(ngModel)]="student.gender"> male <input type="radio" value="Female" [(ngModel)]="student.gender"> female <input type="radio" value="Other" [(ngModel)]="student.gender"> other   
+
+Marks <input type="number" [(ngModel)]="student.marks">
+   Sem <input type="number" [(ngModel)]="student.sem">
+
+<button (click)="addStudent()"> add student</button>
+
+</pre>
+
+
+  
+
+--------------app.html 
+
+
+this is parent
+
+
+
+<app-add-student (studentAdded)="onStudentAddedd($event)"></app-add-student>
+
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+    <tr *ngFor="let student of students"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+    </tr>
+
+
+</table>
+
+
+
+  
+------app.ts
+
+
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+   students:Student[]=[];
+  
+  constructor(){
+
+this.students=[
+  {'rollNo':1,'name':'test','gender':'female','marks':90,'sem':5},
+  {'rollNo':2,'name':'virat','gender':'male','marks':90,'sem':5},
+  
+  {'rollNo':3,'name':'rohit','gender':'male','marks':90,'sem':5},
+  
+
+];
+
+  }
+
+  onStudentAddedd(student:Student)
+  {
+this.students.push(student);
+  }
+
+}
+
+  
+
+  
