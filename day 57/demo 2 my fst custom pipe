@@ -1,0 +1,175 @@
+--------------click on src and create a file called mycCustom.pipe.ts 
+
+  ---------myCustom.pipe.ts
+
+  //@Pipe
+//implement PipeTransform - transform
+
+import { Pipe, PipeTransform } from "@angular/core";
+
+@Pipe({name:'testpipe',standalone:false})
+export class MyPipe implements PipeTransform{
+transform(value: any, ...args: any[]) {
+    
+    return 'anything here';
+}
+}
+
+ ---------------------after creating the pipe ensure it is added in the app.module.ts 
+  
+-----------app.module.ts 
+
+
+import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing-module';
+import { App } from './app';
+import { Menu } from './menu/menu';
+import { FormsModule } from '@angular/forms';
+import { Address } from './address/address';
+import { AddStudent } from './add-student/add-student';
+import { MyPipe } from '../mycustom.pipe';
+
+@NgModule({
+  declarations: [
+    App,
+    Menu,
+    Address,
+    AddStudent,
+    MyPipe
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners()
+  ],
+  bootstrap: [App,Menu]
+})
+export class AppModule { }
+
+--------------------------------app.html 
+
+
+
+  
+this is parent
+
+
+
+<app-add-student (studentAdded)="onStudentAddedd($event)"></app-add-student>
+
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+    <tr *ngFor="let student of students"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+    </tr>
+
+
+</table>
+
+<!-- pipes -->
+
+<br>
+
+{{name|uppercase}}
+
+
+<br>
+
+{{name}}
+
+<br>
+
+{{money}}
+<br>
+
+{{money|currency}}
+
+<br>
+
+{{money|currency:'INR'}}
+
+<br>
+
+{{money|currency:'EUR'}}
+
+<br>
+{{now}}
+
+
+<br>
+{{now|date}}
+
+<br>
+{{now|date:'dd-MM-yyyy'}}
+
+
+<br>
+{{name|testpipe}}
+
+-----------------app.ts
+
+
+  import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css',
+  
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+   students:Student[]=[];
+  
+  constructor(){
+
+this.students=[
+  {'rollNo':1,'name':'test','gender':'female','marks':90,'sem':5},
+  {'rollNo':2,'name':'virat','gender':'male','marks':90,'sem':5},
+  
+  {'rollNo':3,'name':'rohit','gender':'male','marks':90,'sem':5},
+  
+
+];
+
+  }
+
+  onStudentAddedd(student:Student)
+  {
+this.students.push(student);
+  }
+
+//pipes
+
+name='virat kohli'
+
+money=10;
+
+
+now=new Date();
+}
+
+
+
+   
