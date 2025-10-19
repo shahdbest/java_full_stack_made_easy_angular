@@ -1,0 +1,121 @@
+---------mycusomt.pipe.ts
+
+//@Pipe
+//implement PipeTransform - transform
+
+import { Pipe, PipeTransform } from "@angular/core";
+
+@Pipe({name:'testpipe',standalone:false})
+export class MyPipe implements PipeTransform{
+transform(value: any, ...args: any[]) {
+    console.log(args.length);
+
+    if(args.length==0)
+        return value;
+
+    if(args.length>=0)
+    {
+        if(args[0].toUpperCase()=='U')
+        {
+           return value.toUpperCase();
+        }
+        else if(args[0].toUpperCase()=='L')
+        {
+            return value.toLowerCase();
+        }
+        
+
+    }
+    
+}
+}
+
+
+----------------app.html 
+
+  
+this is parent
+
+
+
+<app-add-student (studentAdded)="onStudentAddedd($event)"></app-add-student>
+
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+    <tr *ngFor="let student of students"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+    </tr>
+
+
+</table>
+
+<!-- pipes -->
+
+<br>
+
+{{name|uppercase}}
+
+
+<br>
+
+{{name}}
+
+<br>
+
+{{money}}
+<br>
+
+{{money|currency}}
+
+<br>
+
+{{money|currency:'INR'}}
+
+<br>
+
+{{money|currency:'EUR'}}
+
+<br>
+{{now}}
+
+
+<br>
+{{now|date}}
+
+<br>
+{{now|date:'dd-MM-yyyy'}}
+
+
+<p> result of custome pipe below</p> 
+<br>
+{{name|testpipe}}
+
+
+<br>
+{{name|testpipe:'u'}}
+
+
+<br>
+{{name|testpipe:'l'}}
+
+
+
+<br>
+{{name|testpipe:'U'}}
+
+
+  
+
