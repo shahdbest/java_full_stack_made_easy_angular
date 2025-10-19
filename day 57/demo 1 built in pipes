@@ -1,3 +1,5 @@
+--------app.ts
+
 import { Component, signal } from '@angular/core';
 import { Student } from '../student.model';
 
@@ -5,7 +7,7 @@ import { Student } from '../student.model';
   selector: 'test',//edited
   templateUrl: './app.html',
   standalone: false,
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('demo1');
@@ -30,11 +32,83 @@ this.students=[
 this.students.push(student);
   }
 
-  // pipes 
+//pipes
 
-name:string='virat kohli';
+name='virat kohli'
+
 money=10;
 
-now=new Date();
 
+now=new Date();
 }
+
+
+----------------------app.html
+
+
+this is parent
+
+
+
+<app-add-student (studentAdded)="onStudentAddedd($event)"></app-add-student>
+
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+    <tr *ngFor="let student of students"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+    </tr>
+
+
+</table>
+
+<!-- pipes -->
+
+<br>
+
+{{name|uppercase}}
+
+
+<br>
+
+{{name}}
+
+<br>
+
+{{money}}
+<br>
+
+{{money|currency}}
+
+<br>
+
+{{money|currency:'INR'}}
+
+<br>
+
+{{money|currency:'EUR'}}
+
+<br>
+{{now}}
+
+
+<br>
+{{now|date}}
+
+<br>
+{{now|date:'dd-MM-yyyy'}}
+
+
+
