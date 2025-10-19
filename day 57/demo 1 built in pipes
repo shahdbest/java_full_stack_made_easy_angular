@@ -1,0 +1,40 @@
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+   students:Student[]=[];
+  
+  constructor(){
+
+this.students=[
+  {'rollNo':1,'name':'test','gender':'female','marks':90,'sem':5},
+  {'rollNo':2,'name':'virat','gender':'male','marks':90,'sem':5},
+  
+  {'rollNo':3,'name':'rohit','gender':'male','marks':90,'sem':5},
+  
+
+];
+
+  }
+
+  onStudentAddedd(student:Student)
+  {
+this.students.push(student);
+  }
+
+  // pipes 
+
+name:string='virat kohli';
+money=10;
+
+now=new Date();
+
+}
