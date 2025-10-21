@@ -1,0 +1,30 @@
+---gender.pipe.ts
+
+  //@Pipe
+//implement PipeTransform - transform
+
+import { Pipe, PipeTransform } from "@angular/core";
+import { Student } from "./student.model";
+
+@Pipe({name:'pureGender',standalone:false,pure:false})
+export class Gender implements PipeTransform{
+transform(students: Student[], gender: string) {
+
+   return students.filter(
+    stud => stud.gender===gender)
+    }
+    
+}
+
+
+
+-----------------------
+
+pure pipe(default) --------- impure pipe
+
+  faster   ----------- slow
+  ui is not updated -------- ui gets updated
+  
+  
+
+  
