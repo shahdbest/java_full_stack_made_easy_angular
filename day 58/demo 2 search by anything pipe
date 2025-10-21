@@ -1,0 +1,25 @@
+-----search.pipe.ts
+
+  //@Pipe
+//implement PipeTransform - transform
+
+import { Pipe, PipeTransform } from "@angular/core";
+import { Student } from "./student.model";
+
+@Pipe({name:'search',standalone:false})
+export class SearchPipe implements PipeTransform{
+transform(students: Student[], searchText: string) {
+
+    if(!students || !searchText)
+        return students;
+
+    searchText=searchText.toUpperCase();
+
+   return students.filter(
+    stud => JSON.stringify(stud).toUpperCase().
+    includes(searchText))
+
+    }
+    
+}
+
