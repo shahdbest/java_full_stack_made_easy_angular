@@ -1,0 +1,142 @@
+----gender.pipe.ts
+
+
+  //@Pipe
+//implement PipeTransform - transform
+
+import { Pipe, PipeTransform } from "@angular/core";
+import { Student } from "./student.model";
+
+@Pipe({name:'pureGender',standalone:false,pure:true})
+export class Gender implements PipeTransform{
+transform(students: Student[], gender: string) {
+
+   return students.filter(
+    stud => stud.gender===gender)
+    }
+    
+}
+
+-------------------app.module.ts
+  import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
+  import { BrowserModule } from '@angular/platform-browser';
+
+  import { AppRoutingModule } from './app-routing-module';
+  import { App } from './app';
+  import { Menu } from './menu/menu';
+  import { FormsModule } from '@angular/forms';
+  import { Address } from './address/address';
+  import { AddStudent } from './add-student/add-student';
+  import { MyPipe } from '../mycustom.pipe';
+  import { SearchPipe } from '../search.pipe';
+import { Gender } from '../gender.pipe';
+
+  @NgModule({
+    declarations: [
+      App,
+      Menu,
+      Address,
+      AddStudent,
+      MyPipe,
+      SearchPipe,
+      Gender
+    ],
+    imports: [
+      BrowserModule,
+      AppRoutingModule,
+      FormsModule
+    ],
+    providers: [
+      provideBrowserGlobalErrorListeners()
+    ],
+    bootstrap: [App,Menu]
+  })
+  export class AppModule { }
+
+----------------app.html 
+
+
+
+<button (click)="onStudentAddedd()"> add </button>
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+    <tr *ngFor="let student of students |pureGender:'female'"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+    </tr>
+
+
+</table>
+
+<!-- pipes -->
+
+
+  -----------app.ts
+
+  import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css',
+  
+})
+export class App {
+  protected readonly title = signal('demo1');
+
+   students:Student[]=[];
+  searchText='';
+
+  constructor(){
+
+this.students=[
+  {'rollNo':1,'name':'test','gender':'female','marks':90,'sem':5},
+  {'rollNo':2,'name':'virat','gender':'male','marks':90,'sem':5},
+  {'rollNo':4,'name':'viru','gender':'male','marks':90,'sem':5},
+  {'rollNo':5,'name':'vikas','gender':'male','marks':90,'sem':5},
+
+  {'rollNo':3,'name':'rohit','gender':'male','marks':90,'sem':5},
+  {'rollNo':8,'name':'anything','gender':'female','marks':90,'sem':5},
+  {'rollNo':9,'name':'any name','gender':'female','marks':90,'sem':5},
+  
+
+];
+
+  }
+
+  onStudentAddedd()
+  {
+  let stud=  {'rollNo':55,'name':'new data','gender':'female','marks':90,'sem':5};
+this.students.push(stud);
+console.log('added');  
+}
+
+//pipes
+
+name='virat kohli'
+
+money=10;
+
+
+now=new Date();
+}
+
+  
+
+  
+
+
