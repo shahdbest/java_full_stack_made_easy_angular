@@ -1,0 +1,32 @@
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+import { Message} from './message';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css',
+  
+})
+export class App {
+
+ msg="";
+ // normal way
+//  msgService;
+// constructor(msgService:Message)
+// {
+//   this.msgService=msgService;
+// }
+
+  //angular way : where angular create a instance var msgService and initilize that with the local varaible msgService created inside the constructor args
+constructor(private msgService:Message)
+{
+}
+
+getMessage()
+{
+  this.msg=this.msgService.sayHello();
+}
+
+}
