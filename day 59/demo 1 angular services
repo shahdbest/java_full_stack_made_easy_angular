@@ -1,0 +1,48 @@
+---ng g s Message 
+
+  import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root' // globally availabe
+})
+export class Message {
+
+  sayHello()
+  {
+    return "hello from service"
+  }
+  
+}
+
+---------------app.ts 
+
+import { Component, signal } from '@angular/core';
+import { Student } from '../student.model';
+import { Message} from './message';
+
+@Component({
+  selector: 'test',//edited
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css',
+  
+})
+export class App {
+
+  msg="";
+constructor(private msgService:Message)
+{
+this.msg=msgService.sayHello();
+}
+
+}
+
+--------------------app.html
+
+
+msg from service is 
+{{msg}}
+  
+
+
+  
