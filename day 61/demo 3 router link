@@ -1,0 +1,41 @@
+
+
+<p> root component </p>
+<p> href </p>
+<ul>
+<li> <a href="view"> view student </a> </li>
+<li> <a href="add"> add student </a> </li>
+
+<li> <a href="delete"> delete </a> </li>
+
+
+</ul>
+
+
+<p> router link</p>
+<ul>
+<li> <a routerLink="view"> view student </a> </li>
+<li> <a routerLink="add"> add student </a> </li>
+
+<li> <a routerLink="delete"> delete </a> </li>
+
+
+</ul>
+
+
+
+
+<!-- <app-add-student> </app-add-student>
+
+
+<p> list of available students</p>
+<app-view> </app-view>
+
+<p> delete student </p>
+
+<app-delete> </app-delete> -->
+
+
+
+<router-outlet> </router-outlet>
+
