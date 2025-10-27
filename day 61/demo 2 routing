@@ -1,0 +1,43 @@
+----app-routing.module.ts
+
+
+  import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { AddStudent } from './add-student/add-student';
+import { View } from './view/view';
+import { Delete } from './delete/delete';
+
+const routes: Routes = [
+  {path:'add',component:AddStudent},
+  {path:'view',component:View},
+  {path:'delete',component:Delete},
+  
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+------------------------app.html 
+
+<p> root component </p>
+
+<!-- <app-add-student> </app-add-student>
+
+
+<p> list of available students</p>
+<app-view> </app-view>
+
+<p> delete student </p>
+
+<app-delete> </app-delete> -->
+
+
+
+
+<router-outlet> </router-outlet>
+  
+
+
