@@ -1,0 +1,112 @@
+ng g c delete
+
+-------------student.servie.ts
+
+  import { Injectable } from '@angular/core';
+import { Student } from '../student.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StudentService {
+
+  students:Student[]=[
+  {'rollNo':1,'name':'test','gender':'female','marks':90,'sem':5},
+  {'rollNo':2,'name':'virat','gender':'male','marks':90,'sem':5},
+  {'rollNo':4,'name':'viru','gender':'male','marks':90,'sem':5},
+  {'rollNo':5,'name':'vikas','gender':'male','marks':90,'sem':5},
+
+  {'rollNo':3,'name':'rohit','gender':'male','marks':90,'sem':5},
+  
+  {'rollNo':6,'name':'pandya','gender':'male','marks':90,'sem':5},
+
+];
+
+  
+getStudents()
+{
+  return this.students;
+}
+
+addStudent(student:Student)
+{
+this.students.push(student);
+}
+
+deleteStudent(student:Student)
+{
+
+ let idx= this.students.indexOf(student);
+
+this.students.splice(idx,1);
+}
+
+
+}
+
+
+-------------------delete.html 
+
+<p>delete works!</p>
+
+
+<table> 
+
+    <tr> 
+<th> Roll No</th>
+<th> Name</th>
+<th> Gender</th>
+<th> Marks</th>
+<th> Sem</th>
+    </tr>
+
+<tr *ngFor="let student of students"> 
+<th> {{student.rollNo}}</th>
+<th> {{student.name}}</th>
+<th> {{student.gender}}</th>
+<th> {{student.marks}}</th>
+<th> {{student.sem}}</th>
+<th> <button (click)="deleteStudent(student)"> delete </button> </th>
+    </tr>
+
+
+</table>
+
+--------------------------delete.ts
+
+import { Component } from '@angular/core';
+import { Student } from '../../student.model';
+import { StudentService } from '../student-service';
+
+@Component({
+  selector: 'app-delete',
+  standalone: false,
+  templateUrl: './delete.html',
+  styleUrl: './delete.css'
+})
+export class Delete {
+
+  students:Student[]=[];
+  constructor(private studentService:StudentService)
+  {
+
+    this.students=studentService.getStudents();
+  }
+
+deleteStudent(student:Student)
+{
+//console.log(student);
+this.studentService.deleteStudent(student);
+}
+
+}
+
+
+
+  
+  
+
+  
+  
+
+
