@@ -1,0 +1,81 @@
+created new angular project 
+
+  ng new --no-standalone 
+
+  opened the newly created project 
+
+  ng g c home
+  ng g c about
+  ng g c contact
+  ng g c services 
+
+  ng g cservices/carwash
+    ng g cservices/carrent
+    ng g cservices/carpaint
+  
+
+---------app-routing.module.ts
+
+  import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Home } from './home/home';
+import { Services } from './services/services';
+import { Contact } from './contact/contact';
+import { About } from './about/about';
+import { Carwash } from './services/carwash/carwash';
+import { Carrent } from './services/carrent/carrent';
+import { Carpaint } from './services/carpaint/carpaint';
+
+const routes: Routes = [
+
+  {path:'home',component:Home},
+  {path:'about',component:About},
+  {path:'contact',component:Contact},
+  {path:'services',component:Services,
+    children:[
+       {path:'carwash',component:Carwash},
+       {path:'carrent',component:Carrent},
+       {path:'carpaint',component:Carpaint}
+    ]
+
+  }
+  
+
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+
+------------app.html 
+
+home contact about and services go here
+
+<router-outlet> </router-outlet>
+
+-------servies.html 
+
+<p>services works!</p>
+
+<p> child below this </p> 
+<router-outlet> </router-outlet>
+
+
+------------------------ urls 
+
+  http://localhost:4200/home
+    http://localhost:4200/contact
+  
+  
+  
+  http://localhost:4200/services/carwash
+    http://localhost:4200/services
+  
+  
+
+
