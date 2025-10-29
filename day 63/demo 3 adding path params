@@ -1,0 +1,81 @@
+-------------login.ts
+
+  import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-login',
+  standalone: false,
+  templateUrl: './login.html',
+  styleUrl: './login.css',
+})
+export class Login {
+
+  constructor(private router:Router){
+
+  }
+
+  userName="";
+  password="";
+
+validateLogin(){
+
+  if(this.userName=='admin' && this.password=='admin123')
+  {
+    alert('valid user')
+    this.router.navigate(['home',this.userName]);
+  }
+  else if(this.userName=='user' && this.password=='user123')
+  {
+    alert('valid user')
+    this.router.navigate(['home',this.userName]);
+  }
+  else
+    alert('invalid user')
+
+}
+
+}
+
+------------------------app-routing.module.ts
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Home } from './home/home';
+import { Services } from './services/services';
+import { Contact } from './contact/contact';
+import { About } from './about/about';
+import { Carwash } from './services/carwash/carwash';
+import { Carrent } from './services/carrent/carrent';
+import { Carpaint } from './services/carpaint/carpaint';
+import { Login } from './login/login';
+
+const routes: Routes = [
+{path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'home/:userId',component:Home},
+  {path:'about',component:About},
+  {path:'contact',component:Contact},
+   {path:'login',component:Login},
+  {path:'services',component:Services,
+    children:[
+      {path:'',redirectTo:'carpaint',pathMatch:'full'},
+       {path:'carwash',component:Carwash},
+       {path:'carrent',component:Carrent},
+       {path:'carpaint',component:Carpaint}
+    ]
+
+  }
+  
+
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+  
+
