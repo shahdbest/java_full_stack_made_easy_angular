@@ -1,0 +1,48 @@
+--home.ts
+
+  import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+@Component({
+  selector: 'app-home',
+  standalone: false,
+  templateUrl: './home.html',
+  styleUrl: './home.css',
+})
+export class Home implements OnInit{
+
+  constructor(private actv:ActivatedRoute){}
+
+  // constructor-> when the TV is manufactured
+  //ngOnInit -> when u power on the TV fro the first time   
+
+ngOnInit(): void {
+  this.readPathParams();
+}
+
+userName="";
+
+
+readPathParams()
+{
+  this.actv.params.subscribe(
+
+    data=>{
+      this.userName=data['userId'];
+    }
+  
+
+  )
+}
+
+
+}
+
+--------------home.html 
+
+<p>home works!</p>
+
+welcome  {{userName}}
+  
+  
+
