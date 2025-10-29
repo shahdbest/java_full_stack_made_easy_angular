@@ -1,0 +1,54 @@
+ng g guard paint
+
+  --------------paint-guard.ts
+import { CanActivateFn } from '@angular/router';
+
+export const paintGuard: CanActivateFn = (route, state) => {
+  return false;
+};
+
+
+---------app-routing.module.ts 
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Home } from './home/home';
+import { Services } from './services/services';
+import { Contact } from './contact/contact';
+import { About } from './about/about';
+import { Carwash } from './services/carwash/carwash';
+import { Carrent } from './services/carrent/carrent';
+import { Carpaint } from './services/carpaint/carpaint';
+import { Login } from './login/login';
+import { paintGuard } from './paint-guard';
+
+const routes: Routes = [
+{path:'',redirectTo:'login',pathMatch:'full'},
+  {path:'home/:userId/:pass',component:Home},
+  {path:'about',component:About},
+  {path:'contact',component:Contact},
+   {path:'login',component:Login},
+  {path:'services',component:Services,
+    children:[
+      {path:'',redirectTo:'carwash',pathMatch:'full'},
+       {path:'carwash',component:Carwash},
+       {path:'carrent',component:Carrent},
+       {path:'carpaint',component:Carpaint, canActivate:[paintGuard]}
+    ]
+
+  }
+  
+
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+
+
+  
