@@ -1,0 +1,80 @@
+------------app-routing.module.ts
+
+  import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { Home } from './home/home';
+import { Services } from './services/services';
+import { Contact } from './contact/contact';
+import { About } from './about/about';
+import { Carwash } from './services/carwash/carwash';
+import { Carrent } from './services/carrent/carrent';
+import { Carpaint } from './services/carpaint/carpaint';
+
+const routes: Routes = [
+{path:'',redirectTo:'home',pathMatch:'full'},
+  {path:'home',component:Home},
+  {path:'about',component:About},
+  {path:'contact',component:Contact},
+  {path:'services',component:Services,
+    children:[
+      {path:'',redirectTo:'carpaint',pathMatch:'full'},
+       {path:'carwash',component:Carwash},
+       {path:'carrent',component:Carrent},
+       {path:'carpaint',component:Carpaint}
+    ]
+
+  }
+  
+
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+-----------------app.html 
+home contact about and services go here
+
+<ul> 
+<li> <a routerLink="home"> home </a> </li>  
+<li> <a routerLink="about"> about us </a> </li>  
+
+<li> <a routerLink="contact"> contact us </a> </li>  
+<li> <a routerLink="services"> our services </a> </li>  
+
+</ul>
+
+<router-outlet> </router-outlet>
+
+
+  -----------------service.html 
+
+<p>services works!</p>
+
+<p> child below this </p> 
+
+
+
+<ul> 
+<li> <a routerLink="carrent"> rent a car </a> </li>  
+<li> <a routerLink="carwash"> wash your car </a> </li>  
+
+<li> <a routerLink="carpaint"> paint ur car </a> </li>  
+
+</ul>
+
+<router-outlet> </router-outlet>
+  
+  
+
+
+
+
+
+
+
+  
