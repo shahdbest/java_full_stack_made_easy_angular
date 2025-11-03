@@ -1,0 +1,71 @@
+--open terminal and  instal json-server 
+
+
+  --> npm install -g json-server 
+
+create a new angular project 
+
+  open terminal 
+
+  json-server --watch db.json
+
+  if it gives an error that is db.json not found ... 
+  -> open your angular project in explorer paste the db.json file provided 
+
+  json-server --watch db.json
+
+  your restapi will start on prop 3000 
+
+  htpp://localhost:3000/cars
+
+
+open post man the test get request choose method get and type this url 
+
+
+http://localhost:3000/cars
+
+
+http://localhost:3000/cars?color=white
+
+
+make a post request now in another postman tab 
+
+
+url  --> http://localhost:3000/cars
+
+  method post 
+  body 
+  raw 
+
+{
+
+    "id":"3",
+    "name":"swift",
+    "maker":"maruti",
+    "color":"black"
+
+}
+
+  hit send and check the result
+
+    
+
+  
+
+  
+  
+
+
+
+
+
+
+  
+
+  
+  
+
+  
+  
+  
+  
