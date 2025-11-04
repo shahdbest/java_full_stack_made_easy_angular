@@ -5,37 +5,49 @@
 
 create a new angular project 
 
+--> ng new httpdemo --no-standalone
+
   open terminal 
 
   json-server --watch db.json
 
   if it gives an error that is db.json not found ... 
-  -> open your angular project in explorer paste the db.json file provided 
+  -> open your angular project in explorer paste the db.json file provided in day 65 repo 
+
+copy and paste the db.json (downloaded) in httpdemo project that we just now created in the above cmds 
+
 
   json-server --watch db.json
 
-  your restapi will start on prop 3000 
+  your restapi will start on port 3000 
 
   htpp://localhost:3000/cars
 
 
+--. download and install postman to test the fake rest api created using json-server
+
 open post man the test get request choose method get and type this url 
 
+--> get all cars 
+http://localhost:3000/cars  
 
-http://localhost:3000/cars
+--> get car by id
+http://localhost:3000/cars/1
 
 
+-->get cars by color
 http://localhost:3000/cars?color=white
 
 
-make a post request now in another postman tab 
 
+make a post request now in another postman tab 
 
 url  --> http://localhost:3000/cars
 
   method post 
   body 
   raw 
+  json
 
 {
 
@@ -46,9 +58,44 @@ url  --> http://localhost:3000/cars
 
 }
 
-  hit send and check the result
+  hit send and check the result agian by making a get request 
+
+----------
+
+put request (update)
+
+url --> http://localhost:3000/cars/3 
+---- method put
+-----rbody ---aw -json 
+
+request body --
+
+    {
+      "id": "3",
+      "name": "ritz",
+      "maker": "maruti",
+      "color": "red"
+    }
+
+
+
+
+  hit send and check the result agian by making a get request 
+
+
+
+------------delete
+
+url -> http://localhost:3000/cars/1
+method-delete 
+
+  hit send and check the result agian by making a get request 
+
+
 
     
+
+
 
   
 
