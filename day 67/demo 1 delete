@@ -1,0 +1,151 @@
+ensure json server is running
+
+-----------car-service.ts
+
+  import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Car } from '../car.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CarService {
+  
+  constructor(private http:HttpClient)
+  {
+
+  }
+
+getCars(){
+
+ return this.http.get<Car[]>("http://localhost:3000/cars");
+}
+
+
+addCar(car:Car)
+{
+return this.http.post<Car>('http://localhost:3000/cars',car);
+}
+
+
+deleteCar(id:string)
+{
+return this.http.delete(`http://localhost:3000/cars/${id}`);
+}
+
+
+
+}
+
+----------------------------------app.html 
+
+  <table width="80%" border="2px"> 
+<tr> 
+  <th> Id</th>
+  <th> Name</th>
+  <th> Maker</th>
+  <th> Color</th>
+</tr>
+
+
+<tr *ngFor="let car of cars"> 
+  <th> {{car.id}}</th>
+  <th> {{car.name}}</th>
+  <th> {{car.maker}}</th>
+  <th> {{car.color}}</th>
+
+   <th> <button (click)="deleteCar(car.id)"> delete </button></th>
+</tr>
+
+</table>
+
+<!-- add car -->
+
+<input type="text" [(ngModel)]="car.id" placeholder="id"> 
+<input type="text" [(ngModel)]="car.name" placeholder="name"> 
+<input type="text" [(ngModel)]="car.maker" placeholder="maker"> 
+<input type="text" [(ngModel)]="car.color" placeholder="color"> 
+
+<button (click)="addCar()"> add car </button>
+
+
+-------------------app.ts
+
+import { Component, OnInit, signal } from '@angular/core';
+import { CarService } from './car-service';
+import { Car } from '../car.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App implements OnInit{
+ 
+cars:Car[]=[];
+
+  constructor(private carservice:CarService){
+
+  }
+
+
+ngOnInit(): void {
+  this.getCars();
+}
+
+getCars()
+{
+
+  this.carservice.getCars().subscribe(
+    data=>{
+this.cars=data;
+console.log(this.cars);
+},
+    error=>{
+      console.log(error);
+    }
+
+  )
+}
+//------add car
+
+
+car=new Car();
+
+addCar(){
+
+  this.carservice.addCar(this.car).subscribe(
+    data=>{
+      alert('car added')
+    },
+    error=>{
+console.log(error)
+    }
+  )
+}
+
+//--------------------delete car
+
+deleteCar(id:string)
+{
+
+  this.carservice.deleteCar(id).subscribe(
+
+    data=>{
+      alert('data deleted');
+    },
+    error=>{
+      console.log(error);
+    }
+  )
+}
+
+
+}
+
+
+  
+
+  
+
