@@ -1,0 +1,72 @@
+----view.ts
+
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SuperheroService } from '../superhero-service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SuperHero } from '../../superhero.model';
+
+@Component({
+  selector: 'app-superhero-view-component',
+  standalone: false,
+  templateUrl: './superhero-view-component.html',
+  styleUrl: './superhero-view-component.css',
+})
+export class SuperheroViewComponent implements OnInit{
+
+
+  ngOnInit(): void {
+    this.getData();
+  }
+  
+hero=new SuperHero();
+  constructor(private heroService:SuperheroService
+    ,private myrouter:Router
+    ,private activatedRoute:ActivatedRoute,
+    private cdr:ChangeDetectorRef
+  )
+  {}
+
+
+  getData(){
+
+    let id="";
+    this.activatedRoute.params.subscribe(
+      data=>{
+        id=data['id'];
+      }
+    );
+    console.log(id);
+
+    this.heroService.getHeroById(id).subscribe(
+
+      data=>{
+       this.hero=data;
+        console.log(this.hero);
+       this.cdr.detectChanges()
+      },
+      error=>{
+        console.log(error);
+      }
+
+    )
+  }
+
+
+}
+
+
+------------view.html
+
+
+
+<pre> 
+id: {{hero.id}}
+name: {{hero.name}}
+power: {{hero.power}}
+universe: {{hero.universe}}
+
+</pre>
+        <button [routerLink]="['/heros']"> Back</button>
+
+
+
