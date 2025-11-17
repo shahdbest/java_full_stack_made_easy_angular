@@ -1,0 +1,81 @@
+-----------edit.ts
+
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SuperHero } from '../../superhero.model';
+import { SuperheroService } from '../superhero-service';
+import { ActivatedRoute, Router } from '@angular/router';
+
+@Component({
+  selector: 'app-superhero-edit-component',
+  standalone: false,
+  templateUrl: './superhero-edit-component.html',
+  styleUrl: './superhero-edit-component.css',
+})
+export class SuperheroEditComponent  implements OnInit{
+
+
+  ngOnInit(): void {
+    this.getData();
+  }
+  
+hero=new SuperHero();
+  constructor(private heroService:SuperheroService
+    ,private myrouter:Router
+    ,private activatedRoute:ActivatedRoute,
+    private cdr:ChangeDetectorRef
+  )
+  {}
+
+
+  getData(){
+
+    let id="";
+    this.activatedRoute.params.subscribe(
+      data=>{
+        id=data['id'];
+      }
+    );
+    console.log(id);
+
+    this.heroService.getHeroById(id).subscribe(
+
+      data=>{
+       this.hero=data;
+        console.log(this.hero);
+       this.cdr.detectChanges()
+      },
+      error=>{
+        console.log(error);
+      }
+
+    )
+  }
+
+  update(){
+
+    this.heroService.updateHero(this.hero).subscribe(
+      data=>{
+        alert('hero updated');
+        this.myrouter.navigate(['/heros'])
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+
+  }
+
+
+}
+
+-------edit.html
+
+
+<input type="text" [(ngModel)]="hero.id" placeholder="id"> 
+<input type="text" [(ngModel)]="hero.name" placeholder="name"> 
+<input type="text" [(ngModel)]="hero.power" placeholder="power"> 
+<input type="text" [(ngModel)]="hero.universe" placeholder="universe"> 
+
+<button (click)="update()"> update </button>
+
+
