@@ -1,0 +1,49 @@
+--------------add.ts
+
+import { Component } from '@angular/core';
+import { SuperheroService } from '../superhero-service';
+import { SuperHero } from '../../superhero.model';
+import {  Router } from '@angular/router';
+
+@Component({
+  selector: 'app-superhero-add-component',
+  standalone: false,
+  templateUrl: './superhero-add-component.html',
+  styleUrl: './superhero-add-component.css',
+})
+export class SuperheroAddComponent {
+
+hero=new SuperHero();
+  constructor(private heroService:SuperheroService,private myrouter:Router)
+  {}
+
+
+  save(){
+    this.heroService.addHero(this.hero).subscribe(
+
+      data=>{
+        alert('hero added');
+        this.myrouter.navigate(['/heros'])
+      },
+      error=>{
+        console.log(error);
+      }
+
+    )
+  }
+
+}
+
+
+-----------add.html
+
+
+<input type="text" [(ngModel)]="hero.id" placeholder="id"> 
+<input type="text" [(ngModel)]="hero.name" placeholder="name"> 
+<input type="text" [(ngModel)]="hero.power" placeholder="power"> 
+<input type="text" [(ngModel)]="hero.universe" placeholder="universe"> 
+
+<button (click)="save()"> add </button>
+
+
+
