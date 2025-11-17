@@ -1,0 +1,252 @@
+--ng new httpcrudproject --no-standalone
+
+--copy any previous db.json and edit it 
+
+-------------db.json
+{
+  "superheros": [
+     ]
+}
+
+--json-server --watch db.json
+
+----ng g s superherService 
+
+---------------------------superheroservice.ts 
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { SuperHero } from '../superhero.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SuperheroService {
+
+  private baseUrl="http://localhost:3000/superheros";
+
+  constructor(private http:HttpClient){
+
+  }
+  
+  getHeros(){
+    return this.http.get<SuperHero[]>(this.baseUrl);
+  }
+
+  getHeroById(id:string){
+    return this.http.get<SuperHero>(`${this.baseUrl}/${id}`);
+  }
+
+  addHero(hero:SuperHero){
+    return this.http.post<SuperHero>(this.baseUrl,hero);
+  }
+
+
+    updateHero(hero:SuperHero){
+    return this.http.put<SuperHero>(`${this.baseUrl}/${hero.id}`,hero);
+  }
+
+  deleteHero(id:string){
+    return this.http.delete(`${this.baseUrl}/${id}`);
+  }
+
+
+}
+
+
+---------------app.module.ts
+
+import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing-module';
+import { App } from './app';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { SuperheroListComponent } from './superhero-list-component/superhero-list-component';
+import { SuperheroAddComponent } from './superhero-add-component/superhero-add-component';
+import { SuperheroViewComponent } from './superhero-view-component/superhero-view-component';
+import { SuperheroEditComponent } from './superhero-edit-component/superhero-edit-component';
+
+@NgModule({
+  declarations: [
+    App,
+    SuperheroListComponent,
+    SuperheroAddComponent,
+    SuperheroViewComponent,
+    SuperheroEditComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection()
+  ],
+  bootstrap: [App]
+})
+export class AppModule { }
+
+---------------------------
+
+
+ng g c superheroListComponent
+ng g c superheroEditComponent
+ng g c superheroAddComponent
+ng g c superheroDeleteComponent
+
+
+------------------app-routing.module.ts
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { SuperheroListComponent } from './superhero-list-component/superhero-list-component';
+import { SuperheroAddComponent } from './superhero-add-component/superhero-add-component';
+import { SuperheroEditComponent } from './superhero-edit-component/superhero-edit-component';
+import { SuperheroViewComponent } from './superhero-view-component/superhero-view-component';
+
+const routes: Routes = [
+
+  {path:'heros',component:SuperheroListComponent},
+  {path:'heros/add',component:SuperheroAddComponent},
+ {path:'heros/edit/:id',component:SuperheroEditComponent},
+ {path:'heros/view/:id',component:SuperheroViewComponent}
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+--------------------superherolist-component.ts
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { SuperHero } from '../../superhero.model';
+import { SuperheroService } from '../superhero-service';
+
+@Component({
+  selector: 'app-superhero-list-component',
+  standalone: false,
+  templateUrl: './superhero-list-component.html',
+  styleUrl: './superhero-list-component.css',
+})
+export class SuperheroListComponent  implements OnInit{
+
+  heros:SuperHero[]=[];
+
+
+  constructor(private heroService:SuperheroService, private cdr:ChangeDetectorRef)
+  {
+
+  }
+
+ngOnInit(): void {
+  this.loadHeros();
+}
+
+  loadHeros()
+  {
+    this.heroService.getHeros().subscribe(
+      data=>{
+        this.heros=data;
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+  }
+
+
+  deleteHero(id:string){
+
+    this.heroService.deleteHero(id).subscribe(
+
+      data=>{
+        alert('hero deleted')
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+
+  }
+}
+
+
+-----------------------superhero.html 
+
+<table> 
+<tr>
+    <th>
+        Id
+    </th>
+        <th>
+Name
+    </th>
+    <th>
+Power    </th>
+    <th>
+      universe
+    </th>
+
+</tr>
+
+<tr *ngFor="let hero of heros">
+
+     <th>
+{{hero.id}}
+    </th>
+        <th>
+{{hero.name}}
+    </th>
+    <th>
+{{hero.power}}   </th>
+    <th>
+{{hero.universe}}
+    </th>
+
+    <th> 
+        <button [routerLink]="['/heros/view',hero.id]"> view</button>
+       
+
+    </th>
+    <th> 
+        <button [routerLink]="['/heros/edit',hero.id]"> edit</button>
+        
+    </th>
+        <th> 
+        <button (click)="deleteHero(hero.id)"> delete</button>
+        
+    </th>
+
+</tr>
+
+
+</table>
+
+-------------------app.component.html
+
+<router-outlet> </router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
