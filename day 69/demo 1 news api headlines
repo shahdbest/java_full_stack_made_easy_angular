@@ -1,0 +1,152 @@
+----ng new externalapi --no-standalone
+ng g s apiservice
+  
+  ------apiservice.ts
+
+  import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Article } from '../news.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class Apiservice {
+
+  
+  constructor(private http:HttpClient){
+
+  }
+
+
+getHeadlines(){
+
+
+  return this.http.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=API_KEY')
+}
+
+
+
+  
+}
+
+--------------app.html
+
+<p>  todays headlines</p>
+
+<div *ngFor="let article of articles"> 
+
+  <h1> {{article.title}} </h1>
+
+  <img [src]="article.urlToImage" width="200px"> 
+  <br>
+  Written By : {{article.author}}
+<p> {{article.description}} 
+
+  <a [href]="article.url"> read more</a>
+
+</p>
+
+
+
+</div>
+
+    ----------app.ts
+
+
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App implements OnInit{
+  protected readonly title = signal('extrenalapi');
+
+
+  constructor(private http:Apiservice, private cdr:ChangeDetectorRef)
+  {}
+
+  ngOnInit(): void {
+    
+    this.getNews();
+  }
+
+articles:Article[]=[];
+
+  getNews()
+  {
+    this.http.getHeadlines().subscribe(
+
+      data=>{
+        console.log(data);
+        
+        let myJson= JSON.parse(JSON.stringify(data))
+        
+        
+        this.articles=myJson.articles;
+
+
+
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+  }
+
+}
+
+
+-------------------model
+
+export class Article{
+
+    title='';
+    description="";
+    url="";
+    urlToImage="";
+    author="";
+
+}
+
+------app.module.ts
+
+
+
+  import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppRoutingModule } from './app-routing-module';
+import { App } from './app';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+@NgModule({
+  declarations: [
+    App
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
+  ],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection()
+  ],
+  bootstrap: [App]
+})
+export class AppModule { }
+
+  
+    
+
+  
+
