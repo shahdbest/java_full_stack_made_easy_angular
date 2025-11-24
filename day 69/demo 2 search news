@@ -1,0 +1,140 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Article } from '../news.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class Apiservice {
+
+  
+  constructor(private http:HttpClient){
+
+  }
+
+
+getHeadlines(){
+
+
+  return this.http.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=87229b519983412ba54b0c374de74182')
+}
+
+searchNews(query:string){
+
+
+  return this.http.get(`https://newsapi.org/v2/everything?q=${query}&apiKey=87229b519983412ba54b0c374de74182`)
+}
+
+
+
+}
+
+
+-------------------------------html
+
+
+<input type="text" [(ngModel)]="searchText"> 
+<button (click)="getNews()"> search </button>
+
+
+<p>  todays headlines</p>
+
+<div *ngFor="let article of articles"> 
+
+  <h1> {{article.title}} </h1>
+
+  <img [src]="article.urlToImage" width="200px"> 
+  <br>
+  Written By : {{article.author}}
+<p> {{article.description}} 
+
+  <a [href]="article.url"> read more</a>
+
+</p>
+
+
+
+</div>
+
+
+    -------------ts
+
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App implements OnInit{
+  protected readonly title = signal('extrenalapi');
+
+
+  constructor(private http:Apiservice, private cdr:ChangeDetectorRef)
+  {}
+
+  ngOnInit(): void {
+    
+    this.getheadlines();
+  }
+
+articles:Article[]=[];
+
+searchText="";
+
+getheadlines()
+  {
+    this.http.getHeadlines().subscribe(
+
+      data=>{
+        console.log(data);
+        
+        let myJson= JSON.parse(JSON.stringify(data))
+        
+        
+        this.articles=myJson.articles;
+
+
+
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+  }
+
+
+getNews()
+  {
+    this.http.searchNews(this.searchText).subscribe(
+
+      data=>{
+        this.articles=[];
+        console.log(data);
+        
+        let myJson= JSON.parse(JSON.stringify(data))
+        
+        
+        this.articles=myJson.articles;
+
+
+
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+  }
+
+}
+
+    
+  
+
