@@ -1,0 +1,104 @@
+---service
+
+  import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Article } from '../news.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class Apiservice {
+
+  
+  constructor(private http:HttpClient){
+
+  }
+
+  caloriesApi(query:string)
+  {
+    let headers=new HttpHeaders().set('x-api-key','YOUR_API_KEY');
+ 
+    return this.http.get<any[]>(`https://api.api-ninjas.com/v1/nutrition?query=${query}`,{headers});
+  }
+
+
+
+}
+
+//----------------------------------------
+
+
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App implements OnInit{
+  protected readonly title = signal('extrenalapi');
+
+
+  constructor(private http:Apiservice, private cdr:ChangeDetectorRef)
+  {}
+
+  ngOnInit(): void {
+//    this.getCalories();
+
+  }
+
+
+searchText="";
+
+sugarValue='';
+
+getCalories()
+  {
+    this.http.caloriesApi(this.searchText).subscribe(
+
+      data=>{
+       
+        console.log(data);
+
+        let myData:any[]=[];
+        myData=data;
+        
+        
+        console.log('this is how you get the values');
+
+ this.sugarValue= myData[0].sugar_g;
+
+
+        this.cdr.detectChanges();
+      },
+      error=>{
+        console.log(error)
+      }
+
+    )
+  }
+
+
+
+}
+
+
+------------------html
+
+
+
+<input type="text" [(ngModel)]="searchText"> 
+<button (click)="getCalories()"> search </button>
+
+
+
+SUGAR =  {{sugarValue}}
+  
+
+
+
+
+
