@@ -1,0 +1,24 @@
+NOTE: add formsModule in app.module.ts
+
+FOR RESULT INSPECT THE ELEMENTS
+  and see classes like ng-touched ng-dirty ng-valid
+  
+<!-- Angular forms
+    
+way for angular to read , 
+validate and use the input
+
+Template driven = HTML (ngModel)
+Reactive  = TS
+-->
+
+
+<form #f="ngForm">
+<input type="text" name="username" ngModel placeholder="enter name"> 
+<input type="text" name="password" ngModel placeholder="enter password"> 
+
+</form> 
+
+
+
+  
