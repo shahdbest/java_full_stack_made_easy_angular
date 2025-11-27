@@ -1,0 +1,45 @@
+
+
+<!-- Angular forms
+    
+way for angular to read , 
+validate and use the input
+
+Template driven = HTML (ngModel)
+Reactive  = TS
+-->
+
+
+<form #f="ngForm" (ngSubmit)="save(f)">
+<input type="text" name="username" ngModel placeholder="enter name"> 
+<input type="text" name="password" ngModel placeholder="enter password"> 
+
+<input type="submit"> 
+</form> 
+
+
+
+----------------
+import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App 
+{
+
+save(form:any)
+{
+
+  console.log(form.value)
+
+}
+
+}
+
+
