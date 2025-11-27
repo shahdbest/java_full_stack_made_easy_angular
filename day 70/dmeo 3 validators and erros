@@ -1,0 +1,40 @@
+
+<!-- Angular forms
+    
+way for angular to read , 
+validate and use the input
+
+Template driven = HTML (ngModel)
+Reactive  = TS
+-->
+
+
+<form #f="ngForm" (ngSubmit)="save(f)">
+
+<input type="email" 
+name="email" ngModel placeholder="enter email"
+required
+email
+#e="ngModel"
+> 
+
+<div *ngIf="e.invalid && e.touched">
+invalid Email    
+</div>
+
+<div *ngIf="e.errors?.['required'] && e.touched">
+Email is required    
+</div>
+
+<div *ngIf="e.errors?.['email'] && e.touched">
+Enter valid email   
+</div>
+
+
+
+
+<input type="text" name="password" ngModel placeholder="enter password"> 
+
+<input type="submit"> 
+</form> 
+
