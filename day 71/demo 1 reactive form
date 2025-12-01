@@ -1,0 +1,54 @@
+------------ts
+
+  import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App 
+{
+
+  form=new FormGroup(
+    {
+      name:new FormControl(''),
+       email:new FormControl(''),
+    }
+  );
+
+  submit(){
+    console.log(this.form.value)
+  }  
+
+}
+
+
+------------------html 
+
+
+  
+<!-- Angular forms
+    
+way for angular to read , 
+validate and use the input
+
+Template driven = HTML (ngModel)
+Reactive  = TS
+-->
+
+
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <input formControlName="name" placeholder="Name"> 
+    <input formControlName="email" placeholder="Email">
+<button type="submit"> submit </button>
+
+</form>
+
+
