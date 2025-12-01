@@ -1,0 +1,90 @@
+------noSpaceValidator
+
+  import { AbstractControl, ValidationErrors } from "@angular/forms";
+
+export function noSpaceValidator(control:AbstractControl):ValidationErrors|null{
+
+    if(control.value && control.value.indexOf(' ')>=0)
+    {
+        return{noSpace:true};
+    }
+    return null;
+}
+
+
+--------------------ts
+  import { ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
+import { Apiservice } from './apiservice';
+import { Article } from '../news.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { noSpaceValidator } from '../noSpaceValidator';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.html',
+  standalone: false,
+  styleUrl: './app.css'
+})
+export class App 
+{
+
+  form=new FormGroup(
+    {
+      name:new FormControl('',Validators.required),
+       email:new FormControl('',[Validators.required,Validators.email]),
+      username:new FormControl('',[Validators.required,noSpaceValidator])
+      }
+  );
+
+  submit(){
+    console.log(this.form.value)
+  }  
+
+}
+
+
+-----------------html 
+
+
+  
+<!-- Angular forms
+    
+way for angular to read , 
+validate and use the input
+
+Template driven = HTML (ngModel)
+Reactive  = TS
+-->
+
+
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+    <input formControlName="name" placeholder="Name"> 
+  <p *ngIf="form.controls['name'].touched && form.controls['name'].hasError('required')"> 
+
+    name is required
+  </p>
+
+
+    <input formControlName="email" placeholder="Email">
+    <p *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']"> 
+    email is required
+  </p>
+    <p *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email']"> 
+    email format is  invalid
+  </p>
+
+
+
+    <input formControlName="username" placeholder="username">
+    <p *ngIf="form.controls['username'].touched && form.controls['username'].errors?.['noSpace']"> 
+    user name cannot contain space
+  </p>
+
+
+
+    <button type="submit"> submit </button>
+
+</form>
+
