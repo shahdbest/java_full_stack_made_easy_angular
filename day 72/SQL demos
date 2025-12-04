@@ -1,0 +1,98 @@
+create database studentsdb
+
+
+use studentsdb
+
+create table students(
+rollno int,
+name varchar(50),
+course varchar(50),
+marks int
+);
+
+drop table students;
+
+create table students(
+rollno int primary key,
+name varchar(50),
+course varchar(50),
+marks int
+);
+
+select * from students 
+
+
+
+insert into students values(1,'rahul','java full stack',85);
+
+
+
+select * from students 
+
+insert into students values(1,'rahul','java full stack',85);
+-- error
+
+insert into students values(2,'rahul','java full stack',85);
+
+select * from students 
+
+delete from students where rollno=2
+
+insert into students values(45,'rohit','java full stack',90);
+
+insert into students values(18,'virat','java full stack',100);
+
+
+select name from students;
+
+select name,rollno from students;
+
+select * from students where marks > 85;
+
+
+select * from students where marks >= 85;
+
+update students set name='KL Rahul' where rollno=1;
+
+
+update students set name='KL Rahul new' , rollno=2 where rollno=1;
+
+select * from students;
+
+
+select * from students
+order by marks desc ;
+
+
+select * from students
+order by marks ;
+
+insert into students values(3,'pandya','angular',92);
+
+insert into students values(4,'pant','angular',56);
+
+select * from students
+
+select course , count(marks) as "total studs"
+from students
+group by course;
+
+select name,course , count(*) as "total studs"
+from students
+group by course;
+-- error always remember any coulmn includen in select must be included in group by or an aggregate function should be used 
+
+
+select course , avg(marks) as "total studs"
+from students
+group by course;
+
+
+select course , avg(marks) as "avg_marks"
+from students
+group by course
+having avg_marks > 80 
+
+
+
+
