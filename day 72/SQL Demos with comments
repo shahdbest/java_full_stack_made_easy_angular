@@ -1,0 +1,185 @@
+-- -------------------------------
+-- CREATE A NEW DATABASE
+-- Syntax: CREATE DATABASE databasename;
+-- -------------------------------
+create database studentsdb;
+
+-- -------------------------------
+-- SWITCH TO THE DATABASE
+-- Syntax: USE databasename;
+-- -------------------------------
+use studentsdb;
+
+-- -------------------------------
+-- CREATE TABLE (first attempt)
+-- Syntax:
+-- CREATE TABLE tablename (
+--   column datatype,
+--   column datatype,
+--   ...
+-- );
+-- -------------------------------
+create table students(
+    rollno int,
+    name varchar(50),
+    course varchar(50),
+    marks int
+);
+
+-- -------------------------------
+-- DROP TABLE (delete entire table)
+-- Syntax: DROP TABLE tablename;
+-- -------------------------------
+drop table students;
+
+-- -------------------------------
+-- CREATE TABLE WITH PRIMARY KEY
+-- PRIMARY KEY = unique, not null
+-- -------------------------------
+create table students(
+    rollno int primary key,
+    name varchar(50),
+    course varchar(50),
+    marks int
+);
+
+-- -------------------------------
+-- SELECT ALL ROWS FROM TABLE
+-- Syntax: SELECT * FROM tablename;
+-- -------------------------------
+select * from students;
+
+-- -------------------------------
+-- INSERT A RECORD
+-- Syntax:
+-- INSERT INTO tablename VALUES (value1, value2, ...);
+-- -------------------------------
+insert into students values (1,'rahul','java full stack',85);
+
+select * from students;
+
+-- -------------------------------
+-- INSERT SAME PRIMARY KEY AGAIN → ERROR
+-- Because rollno=1 already exists
+-- -------------------------------
+insert into students values(1,'rahul','java full stack',85);
+-- ERROR: Duplicate entry for primary key
+
+-- -------------------------------
+-- INSERT NEW VALID RECORD
+-- -------------------------------
+insert into students values(2,'rahul','java full stack',85);
+
+select * from students;
+
+-- -------------------------------
+-- DELETE A SPECIFIC RECORD
+-- Syntax:
+-- DELETE FROM tablename WHERE condition;
+-- -------------------------------
+delete from students where rollno = 2;
+
+-- -------------------------------
+-- INSERT MORE RECORDS
+-- -------------------------------
+insert into students values(45,'rohit','java full stack',90);
+insert into students values(18,'virat','java full stack',100);
+
+-- -------------------------------
+-- SELECT ONLY NAME COLUMN
+-- Syntax: SELECT columnname FROM tablename;
+-- -------------------------------
+select name from students;
+
+-- -------------------------------
+-- SELECT MULTIPLE COLUMNS
+-- -------------------------------
+select name, rollno from students;
+
+-- -------------------------------
+-- SELECT WITH CONDITION (WHERE)
+-- Syntax:
+-- SELECT * FROM tablename WHERE condition;
+-- -------------------------------
+select * from students where marks > 85;
+
+select * from students where marks >= 85;
+
+-- -------------------------------
+-- UPDATE RECORD
+-- Syntax:
+-- UPDATE tablename SET column=value WHERE condition;
+-- -------------------------------
+update students
+set name='KL Rahul'
+where rollno=1;
+
+-- -------------------------------
+-- UPDATE MULTIPLE COLUMNS
+-- -------------------------------
+update students
+set name='KL Rahul new', rollno=2
+where rollno=1;
+
+select * from students;
+
+-- -------------------------------
+-- ORDER BY (ASC or DESC)
+-- Syntax:
+-- SELECT * FROM tablename ORDER BY column ASC/DESC;
+-- -------------------------------
+select * from students
+order by marks desc;   -- highest marks first
+
+select * from students
+order by marks;        -- ascending by default
+
+-- -------------------------------
+-- INSERT ANGULAR STUDENTS
+-- -------------------------------
+insert into students values(3,'pandya','angular',92);
+insert into students values(4,'pant','angular',56);
+
+select * from students;
+
+-- -------------------------------
+-- GROUP BY (count students per course)
+-- Syntax:
+-- SELECT column, aggregate_function(column)
+-- FROM table
+-- GROUP BY column;
+-- -------------------------------
+select course, count(marks) as "total studs"
+from students
+group by course;
+
+-- -------------------------------
+-- WRONG QUERY EXAMPLE (for teaching)
+-- ERROR because name is not in GROUP BY
+-- and is not an aggregate function
+-- -------------------------------
+-- select name, course, count(*) as "total studs"
+-- from students
+-- group by course;
+-- Always remember:
+-- Any non-aggregated column in SELECT must be in GROUP BY.
+
+-- -------------------------------
+-- GROUP BY WITH AVERAGE
+-- -------------------------------
+select course, avg(marks) as "avg_marks"
+from students
+group by course;
+
+-- -------------------------------
+-- HAVING → filter groups (NOT rows)
+-- Syntax:
+-- SELECT column, aggregate
+-- FROM table
+-- GROUP BY column
+-- HAVING condition_on_aggregate;
+-- -------------------------------
+select course, avg(marks) as "avg_marks"
+from students
+group by course
+having avg_marks > 80;
