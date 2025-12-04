@@ -1,0 +1,103 @@
+Here is a **simple, beginner-friendly, step-by-step guide** to install **MySQL Server + MySQL Workbench** on Windows — perfect to explain to students.
+
+---
+
+# ⭐ **Step-by-Step Guide to Install MySQL & MySQL Workbench (Windows)**
+
+## ✅ **Step 1: Download MySQL Installer**
+
+
+https://dev.mysql.com/get/Downloads/MySQLInstaller/mysql-installer-community-8.0.44.0.msi
+
+---
+
+## ✅ **Step 2: Run the Installer**
+
+1. Double-click **mysql-installer-community.exe**.
+
+2. When it opens, select:
+
+   * **Developer Default**
+     (This automatically installs MySQL Server, Workbench, Shell, Router, etc.)
+
+3. Click **Next**.
+
+---
+
+## ✅ **Step 3: Resolve Requirements**
+
+If the installer asks for additional software (Visual Studio tools, .NET), click **Execute** → it installs automatically.
+Then click **Next**.
+
+---
+
+## ✅ **Step 4: Install MySQL Server**
+
+1. Click **Execute** → It will download & install all components.
+2. After installation, click **Next**.
+
+---
+
+## ✅ **Step 5: Configure MySQL Server**
+
+You will see configuration screens:
+
+### **1. Type & Networking**
+
+* Config Type: **Development Computer**
+* Connectivity: **TCP/IP Enabled**
+* Port: **3306** (default)
+* Click **Next**
+
+### **2. Authentication Method**
+
+Choose:
+
+* **Use Strong Password Encryption** (recommended)
+
+Click **Next**
+
+### **3. Set Root Password**
+
+Enter a password for MySQL root user.
+👉 Example: **root@123** 
+
+You may also add additional users (optional).
+
+Click **Next**.
+
+---
+
+## ✅ **Step 6: Apply Configuration**
+
+Click **Execute** → Wait until everything becomes green ✔
+Click **Finish**.
+
+---
+
+## ✅ **Step 7: Install & Configure MySQL Workbench**
+
+Workbench will install automatically.
+After installation: (if not installed use this link )
+MY SQL WORKBENCH
+https://dev.mysql.com/downloads/workbench/
+
+
+1. Open **MySQL Workbench** from Start Menu
+2. You’ll see a local connection (e.g., *Local instance MySQL80*)
+3. Click it
+4. Enter your **root password**
+5. Your Workbench is ready!
+
+---
+
+# 🎉 **You're Done!**
+
+Now you can:
+
+* Create databases
+* Write SQL queries
+* Perform CRUD operations
+* Explore schemas & tables
+
+---
